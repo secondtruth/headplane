@@ -11,12 +11,14 @@ import { NavLink, useSubmit } from 'react-router';
 import Logo from '~/components/Logo';
 import Menu from '~/components/Menu';
 import { AuthSession } from '~/server/web/sessions';
+import { HeadplaneConfig } from '~/server/config/schema';
 import cn from '~/utils/cn';
 
 interface Props {
 	configAvailable: boolean;
 	onboarding: boolean;
 	user?: AuthSession['user'];
+	uiConfig?: HeadplaneConfig['ui'];
 	access: {
 		ui: boolean;
 		machines: boolean;
@@ -61,6 +63,25 @@ function TabLink({ name, to, icon }: TabLinkProps) {
 	);
 }
 
+function ExternalTabLink({ name, url }: { name: string; url: string }) {
+	return (
+		<div className="relative py-2">
+			<a
+				href={url}
+				target="_blank"
+				rel="noreferrer"
+				className={cn(
+					'px-3 py-2 flex items-center rounded-md text-nowrap gap-x-2.5',
+					'hover:bg-headplane-200 dark:hover:bg-headplane-900',
+					'focus:outline-hidden focus:ring-3',
+				)}
+			>
+				{name}
+			</a>
+		</div>
+	);
+}
+
 function Link({ href, text }: LinkProps) {
 	return (
 		<a
@@ -95,9 +116,15 @@ export default function Header(data: Props) {
 					<h1 className="text-2xl font-semibold">headplane</h1>
 				</div>
 				<div className="flex items-center gap-x-4">
-					<Link href="https://tailscale.com/download" text="Download" />
-					<Link href="https://github.com/tale/headplane" text="GitHub" />
-					<Link href="https://github.com/juanfont/headscale" text="Headscale" />
+					{data.uiConfig?.secondary_links?.map((link) => (
+						<Link key={link.url} href={link.url} text={link.name} />
+					)) ?? (
+						<>
+							<Link href="https://tailscale.com/download" text="Download" />
+							<Link href="https://github.com/tale/headplane" text="GitHub" />
+							<Link href="https://github.com/juanfont/headscale" text="Headscale" />
+						</>
+					)}
 					{data.user ? (
 						<Menu>
 							<Menu.IconButton
@@ -107,7 +134,7 @@ export default function Header(data: Props) {
 								{data.user.picture ? (
 									<img
 										src={data.user.picture}
-										alt={data.user.name || data.user.displayName}
+										alt={data.user.name}
 										className="w-8 h-8 rounded-full"
 									/>
 								) : (
@@ -131,7 +158,7 @@ export default function Header(data: Props) {
 								<Menu.Section>
 									<Menu.Item key="profile" textValue="Profile">
 										<div className="text-black dark:text-headplane-50">
-											<p className="font-bold">{data.user.name || data.user.displayName}</p>
+											<p className="font-bold">{data.user.name}</p>
 											<p>{data.user.email}</p>
 										</div>
 									</Menu.Item>
@@ -185,6 +212,9 @@ export default function Header(data: Props) {
 							) : undefined}
 						</>
 					) : undefined}
+					{data.uiConfig?.main_links?.map((link) => (
+						<ExternalTabLink key={link.url} name={link.name} url={link.url} />
+					))}
 				</nav>
 			) : undefined}
 		</header>
