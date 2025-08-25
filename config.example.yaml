@@ -160,18 +160,18 @@ oidc:
 
 # UI Configuration for customizing the interface
 # (This is optional)
-ui:
-  # Custom links to show in the main navigation (tab-style links)
-  # main_links:
-  #   - name: "Documentation"
-  #     url: "https://docs.example.com"
-  #   - name: "Monitoring"
-  #     url: "https://monitoring.example.com"
-
-  # Custom links to show in the secondary navigation (top-right area)
-  # If specified, these replace the default Download, GitHub, and Headscale links
-  # secondary_links:
-  #   - name: "Support"
-  #     url: "https://support.example.com"
-  #   - name: "Status"
-  #     url: "https://status.example.com"
+# ui:
+#   # Custom links to show in the main navigation (tab-style links)
+#   main_links:
+#     - name: "Documentation"
+#       url: "https://docs.example.com"
+#     - name: "Monitoring"
+#       url: "https://monitoring.example.com"
+#
+#   # Custom links to show in the secondary navigation (top-right area)
+#   # If specified, these replace the default Download, GitHub, and Headscale links
+#   secondary_links:
+#     - name: "Support"
+#       url: "https://support.example.com"
+#     - name: "Status"
+#       url: "https://status.example.com"
