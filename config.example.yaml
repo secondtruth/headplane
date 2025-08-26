@@ -165,10 +165,18 @@ oidc:
 #   main_links:
 #     - name: "Documentation"
 #       url: "https://docs.example.com"
+#       icon: "BookOpen"  # Icon name from lucide-react (optional)
 #       external: true  # Opens in new tab (default: true)
 #     - name: "Monitoring"
 #       url: "https://monitoring.example.com"
+#       icon: "Gauge"  # Icon name from lucide-react (optional)
 #       external: false  # Opens in same tab
+#
+#   # Available icons for main_links:
+#   # BookOpen, ExternalLink, Home, Monitor, FileText, Wrench, Database, Shield,
+#   # Zap, Gauge, HelpCircle, Mail, Phone, Building, Clipboard, Search, Star,
+#   # Heart, Bookmark, Tag, Calendar, Clock, Download, Upload, Share, Link,
+#   # Globe2, Server, Settings, Users, Lock
 #
 #   # Custom links to show in the secondary navigation (top-right area)
 #   # If specified, these replace the default Download, GitHub, and Headscale links

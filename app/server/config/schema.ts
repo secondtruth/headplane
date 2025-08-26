@@ -93,7 +93,8 @@ const procConfig = type({
 const linkConfig = type({
 	name: 'string',
 	url: 'string.url',
-	'external?': 'boolean = true',
+	external: 'boolean = true',
+	'icon?': 'string',
 });
 
 const uiConfig = type({

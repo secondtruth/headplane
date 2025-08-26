@@ -5,6 +5,33 @@ import {
 	Server,
 	Settings,
 	Users,
+	// Additional icons for custom links
+	BookOpen,
+	ExternalLink,
+	Home,
+	Monitor,
+	FileText,
+	Wrench,
+	Database,
+	Shield,
+	Zap,
+	Gauge,
+	HelpCircle,
+	Mail,
+	Phone,
+	Building,
+	Clipboard,
+	Search,
+	Star,
+	Heart,
+	Bookmark,
+	Tag,
+	Calendar,
+	Clock,
+	Download,
+	Upload,
+	Share,
+	Link as LinkIcon,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { NavLink, useSubmit } from 'react-router';
@@ -41,6 +68,46 @@ interface TabLinkProps {
 	icon: ReactNode;
 }
 
+// Icon mapping for custom navigation links
+const iconMap: Record<string, ReactNode> = {
+	BookOpen: <BookOpen className="w-5" />,
+	ExternalLink: <ExternalLink className="w-5" />,
+	Home: <Home className="w-5" />,
+	Monitor: <Monitor className="w-5" />,
+	FileText: <FileText className="w-5" />,
+	Wrench: <Wrench className="w-5" />,
+	Database: <Database className="w-5" />,
+	Shield: <Shield className="w-5" />,
+	Zap: <Zap className="w-5" />,
+	Gauge: <Gauge className="w-5" />,
+	HelpCircle: <HelpCircle className="w-5" />,
+	Mail: <Mail className="w-5" />,
+	Phone: <Phone className="w-5" />,
+	Building: <Building className="w-5" />,
+	Clipboard: <Clipboard className="w-5" />,
+	Search: <Search className="w-5" />,
+	Star: <Star className="w-5" />,
+	Heart: <Heart className="w-5" />,
+	Bookmark: <Bookmark className="w-5" />,
+	Tag: <Tag className="w-5" />,
+	Calendar: <Calendar className="w-5" />,
+	Clock: <Clock className="w-5" />,
+	Download: <Download className="w-5" />,
+	Upload: <Upload className="w-5" />,
+	Share: <Share className="w-5" />,
+	Link: <LinkIcon className="w-5" />,
+	Globe2: <Globe2 className="w-5" />,
+	Server: <Server className="w-5" />,
+	Settings: <Settings className="w-5" />,
+	Users: <Users className="w-5" />,
+	Lock: <Lock className="w-5" />,
+};
+
+function getIcon(iconName?: string): ReactNode | null {
+	if (!iconName) return null;
+	return iconMap[iconName] || null;
+}
+
 function TabLink({ name, to, icon }: TabLinkProps) {
 	return (
 		<div className="relative py-2">
@@ -64,7 +131,9 @@ function TabLink({ name, to, icon }: TabLinkProps) {
 	);
 }
 
-function ExternalTabLink({ name, url, external = true }: { name: string; url: string; external?: boolean }) {
+function ExternalTabLink({ name, url, icon, external = true }: { name: string; url: string; icon?: string; external?: boolean }) {
+	const iconElement = getIcon(icon);
+	
 	return (
 		<div className="relative py-2">
 			<a
@@ -77,7 +146,7 @@ function ExternalTabLink({ name, url, external = true }: { name: string; url: st
 					'focus:outline-hidden focus:ring-3',
 				)}
 			>
-				{name}
+				{iconElement} {name}
 			</a>
 		</div>
 	);
@@ -214,7 +283,7 @@ export default function Header(data: Props) {
 						</>
 					) : undefined}
 					{data.uiConfig?.main_links?.map((link) => (
-						<ExternalTabLink key={link.url} name={link.name} url={link.url} external={link.external} />
+						<ExternalTabLink key={link.url} name={link.name} url={link.url} icon={link.icon} external={link.external} />
 					))}
 				</nav>
 			) : undefined}
