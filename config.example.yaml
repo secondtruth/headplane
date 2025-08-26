@@ -161,14 +161,14 @@ oidc:
 # UI Configuration for customizing the interface
 # (This is optional)
 # ui:
-#   # Custom links to show on the left side of the main navigation (before default tabs)
+#   # Custom links to show after the main navigation tabs (appended to left-aligned navigation)
 #   main_links_left:
 #     - name: "Home"
 #       url: "https://home.example.com"
 #       icon: "Home"  # Icon name from lucide-react (optional)
 #       external: true  # Opens in new tab (default: true)
 #
-#   # Custom links to show on the right side of the main navigation (after default tabs)
+#   # Custom links to show on the right side of the main navigation (right-aligned)
 #   main_links_right:
 #     - name: "Documentation"
 #       url: "https://docs.example.com"

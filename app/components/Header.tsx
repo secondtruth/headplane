@@ -243,9 +243,6 @@ export default function Header(data: Props) {
 			</div>
 			{data.access.ui && !data.onboarding ? (
 				<nav className="container flex items-center gap-x-4 overflow-x-auto font-semibold">
-					{data.uiConfig?.main_links_left?.map((link) => (
-						<ExternalTabLink key={link.url} name={link.name} url={link.url} icon={link.icon} external={link.external} />
-					))}
 					{data.access.machines ? (
 						<TabLink
 							to="/machines"
@@ -285,9 +282,16 @@ export default function Header(data: Props) {
 							) : undefined}
 						</>
 					) : undefined}
-					{data.uiConfig?.main_links_right?.map((link) => (
+					{data.uiConfig?.main_links_left?.map((link) => (
 						<ExternalTabLink key={link.url} name={link.name} url={link.url} icon={link.icon} external={link.external} />
 					))}
+					{data.uiConfig?.main_links_right && data.uiConfig.main_links_right.length > 0 ? (
+						<div className="ml-auto flex items-center gap-x-4">
+							{data.uiConfig.main_links_right.map((link) => (
+								<ExternalTabLink key={link.url} name={link.name} url={link.url} icon={link.icon} external={link.external} />
+							))}
+						</div>
+					) : undefined}
 				</nav>
 			) : undefined}
 		</header>
