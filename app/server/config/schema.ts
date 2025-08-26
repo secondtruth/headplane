@@ -98,7 +98,8 @@ const linkConfig = type({
 });
 
 const uiConfig = type({
-	'main_links?': linkConfig.array(),
+	'main_links_left?': linkConfig.array(),
+	'main_links_right?': linkConfig.array(),
 	'secondary_links?': linkConfig.array(),
 }).onDeepUndeclaredKey('reject');
 

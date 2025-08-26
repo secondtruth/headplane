@@ -161,8 +161,15 @@ oidc:
 # UI Configuration for customizing the interface
 # (This is optional)
 # ui:
-#   # Custom links to show in the main navigation (tab-style links)
-#   main_links:
+#   # Custom links to show on the left side of the main navigation (before default tabs)
+#   main_links_left:
+#     - name: "Home"
+#       url: "https://home.example.com"
+#       icon: "Home"  # Icon name from lucide-react (optional)
+#       external: true  # Opens in new tab (default: true)
+#
+#   # Custom links to show on the right side of the main navigation (after default tabs)
+#   main_links_right:
 #     - name: "Documentation"
 #       url: "https://docs.example.com"
 #       icon: "BookOpen"  # Icon name from lucide-react (optional)
@@ -172,7 +179,7 @@ oidc:
 #       icon: "Gauge"  # Icon name from lucide-react (optional)
 #       external: false  # Opens in same tab
 #
-#   # Available icons for main_links:
+#   # Available icons for main_links_left and main_links_right:
 #   # BookOpen, ExternalLink, Home, Monitor, FileText, Wrench, Database, Shield,
 #   # Zap, Gauge, HelpCircle, Mail, Phone, Building, Clipboard, Search, Star,
 #   # Heart, Bookmark, Tag, Calendar, Clock, Download, Upload, Share, Link,
