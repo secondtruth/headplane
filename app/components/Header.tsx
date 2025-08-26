@@ -5,18 +5,47 @@ import {
 	Server,
 	Settings,
 	Users,
+	// Additional icons for custom links
+	BookOpen,
+	ExternalLink,
+	Home,
+	Monitor,
+	FileText,
+	Wrench,
+	Database,
+	Shield,
+	Zap,
+	Gauge,
+	HelpCircle,
+	Mail,
+	Phone,
+	Building,
+	Clipboard,
+	Search,
+	Star,
+	Heart,
+	Bookmark,
+	Tag,
+	Calendar,
+	Clock,
+	Download,
+	Upload,
+	Share,
+	Link as LinkIcon,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { NavLink, useSubmit } from 'react-router';
 import Logo from '~/components/Logo';
 import Menu from '~/components/Menu';
 import { AuthSession } from '~/server/web/sessions';
+import { HeadplaneConfig } from '~/server/config/schema';
 import cn from '~/utils/cn';
 
 interface Props {
 	configAvailable: boolean;
 	onboarding: boolean;
 	user?: AuthSession['user'];
+	uiConfig?: HeadplaneConfig['ui'];
 	access: {
 		ui: boolean;
 		machines: boolean;
@@ -30,12 +59,53 @@ interface Props {
 interface LinkProps {
 	href: string;
 	text: string;
+	external?: boolean;
 }
 
 interface TabLinkProps {
 	name: string;
 	to: string;
 	icon: ReactNode;
+}
+
+// Icon mapping for custom navigation links
+const iconMap: Record<string, ReactNode> = {
+	BookOpen: <BookOpen className="w-5" />,
+	ExternalLink: <ExternalLink className="w-5" />,
+	Home: <Home className="w-5" />,
+	Monitor: <Monitor className="w-5" />,
+	FileText: <FileText className="w-5" />,
+	Wrench: <Wrench className="w-5" />,
+	Database: <Database className="w-5" />,
+	Shield: <Shield className="w-5" />,
+	Zap: <Zap className="w-5" />,
+	Gauge: <Gauge className="w-5" />,
+	HelpCircle: <HelpCircle className="w-5" />,
+	Mail: <Mail className="w-5" />,
+	Phone: <Phone className="w-5" />,
+	Building: <Building className="w-5" />,
+	Clipboard: <Clipboard className="w-5" />,
+	Search: <Search className="w-5" />,
+	Star: <Star className="w-5" />,
+	Heart: <Heart className="w-5" />,
+	Bookmark: <Bookmark className="w-5" />,
+	Tag: <Tag className="w-5" />,
+	Calendar: <Calendar className="w-5" />,
+	Clock: <Clock className="w-5" />,
+	Download: <Download className="w-5" />,
+	Upload: <Upload className="w-5" />,
+	Share: <Share className="w-5" />,
+	Link: <LinkIcon className="w-5" />,
+	Globe2: <Globe2 className="w-5" />,
+	Server: <Server className="w-5" />,
+	Settings: <Settings className="w-5" />,
+	Users: <Users className="w-5" />,
+	Lock: <Lock className="w-5" />,
+};
+
+function getIcon(iconName?: string): ReactNode | null {
+	if (!iconName) return null;
+	return iconMap[iconName] || null;
 }
 
 function TabLink({ name, to, icon }: TabLinkProps) {
@@ -61,12 +131,33 @@ function TabLink({ name, to, icon }: TabLinkProps) {
 	);
 }
 
-function Link({ href, text }: LinkProps) {
+function ExternalTabLink({ name, url, icon, external = true }: { name: string; url: string; icon?: string; external?: boolean }) {
+	const iconElement = getIcon(icon);
+	
+	return (
+		<div className="relative py-2">
+			<a
+				href={url}
+				target={external ? "_blank" : undefined}
+				rel={external ? "noreferrer" : undefined}
+				className={cn(
+					'px-3 py-2 flex items-center rounded-md text-nowrap gap-x-2.5',
+					'hover:bg-headplane-200 dark:hover:bg-headplane-900',
+					'focus:outline-hidden focus:ring-3',
+				)}
+			>
+				{iconElement} {name}
+			</a>
+		</div>
+	);
+}
+
+function Link({ href, text, external = true }: LinkProps) {
 	return (
 		<a
 			href={href}
-			target="_blank"
-			rel="noreferrer"
+			target={external ? "_blank" : undefined}
+			rel={external ? "noreferrer" : undefined}
 			className={cn(
 				'hidden sm:block hover:underline text-sm',
 				'focus:outline-hidden focus:ring-3 rounded-md',
@@ -95,9 +186,15 @@ export default function Header(data: Props) {
 					<h1 className="text-2xl font-semibold">headplane</h1>
 				</div>
 				<div className="flex items-center gap-x-4">
-					<Link href="https://tailscale.com/download" text="Download" />
-					<Link href="https://github.com/tale/headplane" text="GitHub" />
-					<Link href="https://github.com/juanfont/headscale" text="Headscale" />
+					{data.uiConfig?.secondary_links?.map((link) => (
+						<Link key={link.url} href={link.url} text={link.name} external={link.external} />
+					)) ?? (
+						<>
+							<Link href="https://tailscale.com/download" text="Download" />
+							<Link href="https://github.com/tale/headplane" text="GitHub" />
+							<Link href="https://github.com/juanfont/headscale" text="Headscale" />
+						</>
+					)}
 					{data.user ? (
 						<Menu>
 							<Menu.IconButton
@@ -184,6 +281,16 @@ export default function Header(data: Props) {
 								/>
 							) : undefined}
 						</>
+					) : undefined}
+					{data.uiConfig?.main_links_left?.map((link) => (
+						<ExternalTabLink key={link.url} name={link.name} url={link.url} icon={link.icon} external={link.external} />
+					))}
+					{data.uiConfig?.main_links_right && data.uiConfig.main_links_right.length > 0 ? (
+						<div className="ml-auto flex items-center gap-x-4">
+							{data.uiConfig.main_links_right.map((link) => (
+								<ExternalTabLink key={link.url} name={link.name} url={link.url} icon={link.icon} external={link.external} />
+							))}
+						</div>
 					) : undefined}
 				</nav>
 			) : undefined}

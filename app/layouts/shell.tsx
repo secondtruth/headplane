@@ -101,6 +101,7 @@ export async function loader({
 			debug: context.config.debug,
 			user: session.get('user'),
 			uiAccess: check,
+			uiConfig: context.config.ui,
 			access: {
 				ui: await context.sessions.check(request, Capabilities.ui_access),
 				dns: await context.sessions.check(request, Capabilities.read_network),

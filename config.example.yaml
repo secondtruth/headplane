@@ -157,3 +157,40 @@ oidc:
   # Stores the users and their permissions for Headplane
   # This is a path to a JSON file, default is specified below.
   user_storage_file: "/var/lib/headplane/users.json"
+
+# UI Configuration for customizing the interface
+# (This is optional)
+# ui:
+#   # Custom links to show after the main navigation tabs (appended to left-aligned navigation)
+#   main_links_left:
+#     - name: "Home"
+#       url: "https://home.example.com"
+#       icon: "Home"  # Icon name from lucide-react (optional)
+#       external: true  # Opens in new tab (default: true)
+#
+#   # Custom links to show on the right side of the main navigation (right-aligned)
+#   main_links_right:
+#     - name: "Documentation"
+#       url: "https://docs.example.com"
+#       icon: "BookOpen"  # Icon name from lucide-react (optional)
+#       external: true  # Opens in new tab (default: true)
+#     - name: "Monitoring"
+#       url: "https://monitoring.example.com"
+#       icon: "Gauge"  # Icon name from lucide-react (optional)
+#       external: false  # Opens in same tab
+#
+#   # Available icons for main_links_left and main_links_right:
+#   # BookOpen, ExternalLink, Home, Monitor, FileText, Wrench, Database, Shield,
+#   # Zap, Gauge, HelpCircle, Mail, Phone, Building, Clipboard, Search, Star,
+#   # Heart, Bookmark, Tag, Calendar, Clock, Download, Upload, Share, Link,
+#   # Globe2, Server, Settings, Users, Lock
+#
+#   # Custom links to show in the secondary navigation (top-right area)
+#   # If specified, these replace the default Download, GitHub, and Headscale links
+#   secondary_links:
+#     - name: "Support"
+#       url: "https://support.example.com"
+#       external: true  # Opens in new tab (default: true)
+#     - name: "Status"
+#       url: "https://status.example.com"
+#       external: false  # Opens in same tab

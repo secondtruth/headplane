@@ -90,6 +90,19 @@ const procConfig = type({
 	enabled: stringToBool,
 });
 
+const linkConfig = type({
+	name: 'string',
+	url: 'string.url',
+	external: 'boolean = true',
+	'icon?': 'string',
+});
+
+const uiConfig = type({
+	'main_links_left?': linkConfig.array(),
+	'main_links_right?': linkConfig.array(),
+	'secondary_links?': linkConfig.array(),
+}).onDeepUndeclaredKey('reject');
+
 const integrationConfig = type({
 	'docker?': dockerConfig,
 	'kubernetes?': kubernetesConfig,
@@ -108,6 +121,7 @@ export const headplaneConfig = type({
 	debug: stringToBool,
 	server: serverConfig,
 	'oidc?': oidcConfig,
+	'ui?': uiConfig,
 	'integration?': integrationConfig,
 	headscale: headscaleConfig,
 }).onDeepUndeclaredKey('delete');
@@ -116,6 +130,7 @@ export const partialHeadplaneConfig = type({
 	debug: stringToBool,
 	server: serverConfig.partial(),
 	'oidc?': oidcConfig.partial(),
+	'ui?': uiConfig.partial(),
 	'integration?': partialIntegrationConfig,
 	headscale: headscaleConfig.partial(),
 }).partial();
