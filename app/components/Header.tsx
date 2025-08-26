@@ -32,6 +32,7 @@ interface Props {
 interface LinkProps {
 	href: string;
 	text: string;
+	external?: boolean;
 }
 
 interface TabLinkProps {
@@ -63,13 +64,13 @@ function TabLink({ name, to, icon }: TabLinkProps) {
 	);
 }
 
-function ExternalTabLink({ name, url }: { name: string; url: string }) {
+function ExternalTabLink({ name, url, external = true }: { name: string; url: string; external?: boolean }) {
 	return (
 		<div className="relative py-2">
 			<a
 				href={url}
-				target="_blank"
-				rel="noreferrer"
+				target={external ? "_blank" : undefined}
+				rel={external ? "noreferrer" : undefined}
 				className={cn(
 					'px-3 py-2 flex items-center rounded-md text-nowrap gap-x-2.5',
 					'hover:bg-headplane-200 dark:hover:bg-headplane-900',
@@ -82,12 +83,12 @@ function ExternalTabLink({ name, url }: { name: string; url: string }) {
 	);
 }
 
-function Link({ href, text }: LinkProps) {
+function Link({ href, text, external = true }: LinkProps) {
 	return (
 		<a
 			href={href}
-			target="_blank"
-			rel="noreferrer"
+			target={external ? "_blank" : undefined}
+			rel={external ? "noreferrer" : undefined}
 			className={cn(
 				'hidden sm:block hover:underline text-sm',
 				'focus:outline-hidden focus:ring-3 rounded-md',
@@ -117,7 +118,7 @@ export default function Header(data: Props) {
 				</div>
 				<div className="flex items-center gap-x-4">
 					{data.uiConfig?.secondary_links?.map((link) => (
-						<Link key={link.url} href={link.url} text={link.name} />
+						<Link key={link.url} href={link.url} text={link.name} external={link.external} />
 					)) ?? (
 						<>
 							<Link href="https://tailscale.com/download" text="Download" />
@@ -134,7 +135,7 @@ export default function Header(data: Props) {
 								{data.user.picture ? (
 									<img
 										src={data.user.picture}
-										alt={data.user.name}
+										alt={data.user.name || data.user.displayName}
 										className="w-8 h-8 rounded-full"
 									/>
 								) : (
@@ -158,7 +159,7 @@ export default function Header(data: Props) {
 								<Menu.Section>
 									<Menu.Item key="profile" textValue="Profile">
 										<div className="text-black dark:text-headplane-50">
-											<p className="font-bold">{data.user.name}</p>
+											<p className="font-bold">{data.user.name || data.user.displayName}</p>
 											<p>{data.user.email}</p>
 										</div>
 									</Menu.Item>
@@ -213,7 +214,7 @@ export default function Header(data: Props) {
 						</>
 					) : undefined}
 					{data.uiConfig?.main_links?.map((link) => (
-						<ExternalTabLink key={link.url} name={link.name} url={link.url} />
+						<ExternalTabLink key={link.url} name={link.name} url={link.url} external={link.external} />
 					))}
 				</nav>
 			) : undefined}

@@ -165,13 +165,17 @@ oidc:
 #   main_links:
 #     - name: "Documentation"
 #       url: "https://docs.example.com"
+#       external: true  # Opens in new tab (default: true)
 #     - name: "Monitoring"
 #       url: "https://monitoring.example.com"
+#       external: false  # Opens in same tab
 #
 #   # Custom links to show in the secondary navigation (top-right area)
 #   # If specified, these replace the default Download, GitHub, and Headscale links
 #   secondary_links:
 #     - name: "Support"
 #       url: "https://support.example.com"
+#       external: true  # Opens in new tab (default: true)
 #     - name: "Status"
 #       url: "https://status.example.com"
+#       external: false  # Opens in same tab

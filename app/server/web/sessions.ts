@@ -19,6 +19,7 @@ export interface AuthSession {
 		email?: string;
 		username?: string;
 		picture?: string;
+		displayName?: string;
 	};
 }
 
